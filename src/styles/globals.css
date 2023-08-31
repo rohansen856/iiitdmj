@@ -70,7 +70,25 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.animate-gradient {
+  background-clip: text;
+  background-image: linear-gradient(to left, #3b82f6, #a855f7, #3b82f6);
+  background-size: 200% 100%;
+  animation: gradientAnimation 2s linear infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 100% 0%;
+  }
+
+  100% {
+    background-position: 0 0;
   }
 }

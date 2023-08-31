@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 
 import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
@@ -17,7 +17,7 @@ export default async function DashboardLayout({
   const user = await getCurrentUser()
 
   if (!user) {
-    return notFound()
+    return redirect("/login")
   }
 
   return (
@@ -29,7 +29,7 @@ export default async function DashboardLayout({
             user={{
               name: user.name,
               image: user.image,
-              email: user.email,
+              email: user.id,
             }}
           />
         </div>

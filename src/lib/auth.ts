@@ -23,6 +23,14 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ account, profile }) {
+      if (account?.provider === "google") {
+        return profile?.email?.endsWith("@iiitdmj.ac.in") ? true : false
+      }
+
+      return true
+    },
+
     async session({ token, session }) {
       if (token) {
         session.user.id = token.id
