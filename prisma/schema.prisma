@@ -57,6 +57,20 @@ model User {
   @@map(name: "user")
 }
 
+model Routine {
+  id            String    @id @default(cuid())
+  semester      Int
+  subject_code  String    @unique
+  subject_name  String    @unique
+  faculty       String
+  group         Group
+  day           String
+  start         Int
+  end           Int
+  room          String
+  type          SubjectType
+}
+
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -78,4 +92,15 @@ model Post {
   author User @relation(fields: [authorId], references: [id])
 
   @@map(name: "posts")
+}
+
+enum SubjectType {
+  THEORY
+  TUTORIAL
+  LAB
+}
+
+enum Group {
+  A
+  B
 }
