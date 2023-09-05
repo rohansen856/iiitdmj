@@ -9,19 +9,20 @@ export const siteConfig: Readonly<Partial<SiteConfig>> = {
   authors: [
     {
       name: "rcsen",
-      url: "https://shadcn.com",
+      url: "https://rcsen.com",
     },
   ],
   keywords: [
-    "Next.js",
-    "React",
-    "Tailwind CSS",
-    "Server Components",
-    "Radix UI",
+    "IIIT",
+    "IIITDMJ",
+    "IIITDM Jabalpur",
+    "Indian Institute of Information Technology",
+    "Indian Institute of Information Technology Design and Manufacturing, Jabalpur",
+    "Pt. Dwarka Prasad Mishra Indian Institute of Information Technology Design and Manufacturing, Jabalpur",
   ],
-  ogImage: "https://tx.shadcn.com/og.jpg",
+  ogImage: "https://iiitdmj.vercel.app/og.jpg",
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn/taxonomy",
+    twitter: "https://twitter.com/rcsen",
+    github: "https://github.com/rohansen856",
   },
 }

@@ -10,6 +10,7 @@ export async function getCurrentUser() {
   return {
     id: "1256tg",
     name: "dev user",
-    email: "rcsen@iiitdmj"
+    email: "rcsen@iiitdmj",
+    image: "/images/avatars/shadcn.png",
   }
 }

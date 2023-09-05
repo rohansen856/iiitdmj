@@ -1,10 +1,10 @@
 {
-  "name": "taxonomy",
+  "name": "iiitdmj",
   "version": "0.2.0",
   "private": true,
   "author": {
-    "name": "shadcn",
-    "url": "https://twitter.com/shadcn"
+    "name": "rcsen",
+    "url": "https://twitter.com/rcsen"
   },
   "scripts": {
     "dev": "concurrently \"contentlayer dev\" \"next dev\"",
