@@ -60,8 +60,8 @@ model User {
 model Routine {
   id            String    @id @default(cuid())
   semester      Int
-  subject_code  String    @unique
-  subject_name  String    @unique
+  subject_code  String
+  subject_name  String
   faculty       String
   group         Group
   day           String

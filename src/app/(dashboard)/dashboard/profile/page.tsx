@@ -5,6 +5,10 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Routine } from "@/components/routine"
 
+export const metadata = {
+    title: "Dashboard",
+}
+
 export default async function Profile() {
     const user = await getCurrentUser()
 

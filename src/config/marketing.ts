@@ -4,7 +4,7 @@ export const marketingConfig: MarketingConfig = {
   mainNav: [
     {
       title: "Achievements",
-      href: "/#achievements",
+      href: "/#about",
     },
     {
       title: "News & Events",
