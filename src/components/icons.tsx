@@ -17,6 +17,7 @@ import {
   MoreVertical,
   Pizza,
   Plus,
+  Search,
   Settings,
   SunMedium,
   Trash,
@@ -69,4 +70,5 @@ export const Icons = {
   ),
   twitter: Twitter,
   check: Check,
+  search: Search,
 }

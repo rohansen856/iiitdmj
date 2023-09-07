@@ -3,6 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { useSelectedLayoutSegment } from "next/navigation"
+import Image from "next/image"
 
 import { MainNavItem } from "types"
 import { siteConfig } from "@/config/site"
@@ -22,7 +23,7 @@ export function MainNav({ items, children }: MainNavProps) {
   return (
     <div className="flex gap-6 md:gap-10">
       <Link href="/" className="hidden items-center space-x-2 md:flex">
-        <Icons.logo />
+        <Image src={"/logo.png"} alt="iiitdmj" height={40} width={40} />
         <span className="hidden font-bold sm:inline-block">
           {siteConfig.name}
         </span>
@@ -50,7 +51,7 @@ export function MainNav({ items, children }: MainNavProps) {
         className="flex items-center space-x-2 md:hidden"
         onClick={() => setShowMobileMenu(!showMobileMenu)}
       >
-        {showMobileMenu ? <Icons.close /> : <Icons.logo />}
+        {showMobileMenu ? <Icons.close /> : <Image src={"/logo.png"} alt="iiitdmj" height={40} width={40} />}
         <span className="font-bold">Menu</span>
       </button>
       {showMobileMenu && items && (

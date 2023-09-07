@@ -57,3 +57,5 @@ export type DashboardConfig = {
   mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]
 }
+
+export type ClubConfig = DashboardConfig

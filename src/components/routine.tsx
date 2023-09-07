@@ -1,12 +1,14 @@
 import { db } from "@/lib/db"
+import { User } from "@prisma/client"
 
 interface RoutineProps {
+    user: Omit<User, "createdAt" | "updatedAt">
     semester: number
 }
 
 const weekDays = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY",]
 
-export async function Routine({ semester = 1 }: RoutineProps) {
+export async function Routine({ user, semester = 1 }: RoutineProps) {
     try {
         const routine = await db.routine.findMany({
             where: {
@@ -15,11 +17,6 @@ export async function Routine({ semester = 1 }: RoutineProps) {
                 group: "B",
             }
         })
-        routine[0] = routine[0]
-        routine[1] = routine[0]
-        routine[2] = routine[0]
-        routine[3] = routine[0]
-        routine[4] = routine[0]
         routine.sort((a, b) => a.start - b.start)
 
         if (routine.length === 0) {
@@ -36,8 +33,10 @@ export async function Routine({ semester = 1 }: RoutineProps) {
             <div className="relative w-full">
                 <div className="flex h-24 w-full space-x-2 overflow-x-scroll">
                     {routine.map(classes => (
-                        <div className={`flex h-full w-80 min-w-[300px] max-w-[80%] flex-col items-center justify-center bg-secondary ${isActiveClass(classes.start, classes.end)}`}>
-                            <p>{classes.start.toString().padStart(4, "0").substring(0, 2)}:{classes.start.toString().padStart(4, "0").substring(2)} - {classes.end.toString().padStart(4, "0").substring(0, 2)}:{classes.end.toString().padStart(4, "0").substring(2)}</p>
+                        <div className={`flex h-full w-80 min-w-[300px] max-w-[80%] flex-col items-center justify-center rounded-md ${isActiveClass(classes.start, classes.end)}`}>
+                            <div className="flex w-full justify-between px-8">
+                                <p>{classes.start.toString().padStart(4, "0").substring(0, 2)}:{classes.start.toString().padStart(4, "0").substring(2)}</p><p> - </p><p>{classes.end.toString().padStart(4, "0").substring(0, 2)}:{classes.end.toString().padStart(4, "0").substring(2)}</p>
+                            </div>
                             <p>{classes.subject_code} ({classes.subject_name})</p>
                             <p>{classes.faculty}</p>
                         </div>
@@ -58,9 +57,9 @@ export async function Routine({ semester = 1 }: RoutineProps) {
 
 function isActiveClass(start: number, end: number): string {
     const currentTime = (new Date()).getHours() * 100
-    if (currentTime > start && currentTime <= end) {
+    if (currentTime >= start && currentTime <= end) {
         return "bg-yellow-500"
     }
 
-    return ""
+    return "bg-secondary"
 }

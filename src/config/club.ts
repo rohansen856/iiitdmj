@@ -1,15 +1,14 @@
-import { DashboardConfig } from "types";
+import { ClubConfig } from "types"
 
-export const dashboardConfig: DashboardConfig = {
+export const clubConfig: ClubConfig = {
   mainNav: [
     {
-      title: "Code of Conduct",
-      href: "/docs",
+      title: "All clubs",
+      href: "/clubs",
     },
     {
-      title: "Support",
-      href: "/support",
-      disabled: true,
+      title: "Your clubs",
+      href: "/clubs/myclubs",
     },
   ],
   sidebarNav: [
