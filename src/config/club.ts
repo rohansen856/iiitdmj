@@ -29,3 +29,19 @@ export const clubConfig: ClubConfig = {
     },
   ],
 }
+
+type clubs = {
+  type: string
+  name: string
+  coordinator: {
+    name: string
+    roll: string
+    email: string
+  }
+  cocoordinator?: {
+    name: string
+    roll: string
+    email: string
+  }
+  website: string
+}[]

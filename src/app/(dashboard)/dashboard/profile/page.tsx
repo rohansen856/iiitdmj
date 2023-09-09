@@ -21,9 +21,9 @@ export default async function Profile() {
             <Routine user={user} semester={1} />
             <Separator className="my-2" />
             <div className="mx-auto grid grid-cols-1 gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
-                <Button><Link href={"/clubs"} className="h-full w-full">Club Activities</Link></Button>
-                <Button>Your Seniors</Button>
-                <Button>
+                <Button variant={"default"}><Link href={"/clubs"} className="h-full w-full">Club Activities</Link></Button>
+                <Button variant={"default"}>Your Seniors</Button>
+                <Button variant={"default"}>
                     Notifications
                     <Badge className="absolute ml-56 rounded-full border border-blue-950 bg-cyan-700 p-1 text-xs">
                         1

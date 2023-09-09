@@ -6,7 +6,7 @@ interface RoutineProps {
     semester: number
 }
 
-const weekDays = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY",]
+const weekDays = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
 
 export async function Routine({ user, semester = 1 }: RoutineProps) {
     try {

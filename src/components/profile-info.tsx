@@ -1,3 +1,4 @@
+import Image from "next/image"
 
 interface ProfileInfoProps {
     data?: any
@@ -6,10 +7,10 @@ interface ProfileInfoProps {
 export function ProfileInfo({ data }: ProfileInfoProps) {
     return (
         <div className="relative flex w-full flex-col items-center justify-center">
-            <div className="m-5 mt-0 h-32 w-32 rounded-full border bg-slate-800">
-
+            <div className="relative m-5 mt-0 h-32 w-32 rounded-full border bg-secondary">
+                <Image src="/images/avatars/shadcn.png" alt="U" fill />
             </div>
-            <div className="h-24 w-full bg-slate-800"></div>
+            <div className="h-24 w-full bg-secondary"></div>
         </div>
     )
 }

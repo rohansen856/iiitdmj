@@ -25,7 +25,31 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ account, profile }) {
       if (account?.provider === "google") {
-        return profile?.email?.endsWith("@iiitdmj.ac.in") ? true : false
+        if (profile?.email && profile.email.endsWith("@iiitdmj.ac.in")) {
+          let emailId: string = profile.email.toUpperCase()
+          let year: number = parseInt(emailId.slice(0, 2))
+          let programme: string = emailId.slice(2, 3)
+          let branch: string = emailId.slice(3, 5)
+          let roll: number = parseInt(emailId.slice(5, 8))
+          if (year < 17 || year > 25) return false
+          if (programme !== "B" || "M" || "P") return false
+          if (branch !== "CS" || "EC" || "ME" || "SM" || "DS") return false
+          if (roll > 500 || roll < 10) return false
+
+          await db.student.create({
+            data: {
+              id: Math.random().toString(),
+              email: emailId,
+              programme,
+              semester: new Date().getFullYear() - year - 1999,
+              branch,
+              group: "B",
+            },
+          })
+
+          return true
+        }
+        return false
       }
 
       return true

@@ -52,7 +52,6 @@ model User {
 
   accounts Account[]
   sessions Session[]
-  Post     Post[]
 
   @@map(name: "user")
 }
@@ -69,6 +68,8 @@ model Routine {
   end           Int
   room          String
   type          SubjectType
+
+  @@map(name: "routine")
 }
 
 model VerificationToken {
@@ -89,9 +90,48 @@ model Post {
   updatedAt DateTime @default(now()) @map(name: "updated_at")
   authorId  String
 
-  author User @relation(fields: [authorId], references: [id])
+  author Club @relation(fields: [authorId], references: [id])
 
   @@map(name: "posts")
+}
+
+model Club {
+  id              String    @id @default(cuid())
+  title           String    @unique
+  coordinator     Json 
+  cocoordinator   Json?
+  website         String
+
+  Post     Post[]  
+
+  @@map(name: "club")
+}
+
+model Student {
+  id            String      @id @default(cuid())
+  name          String?
+  email         String      @unique
+  image         String?
+  programme     Programme
+  semester      Int
+  branch        Branch
+  group         Group
+
+  @@map(name: "students")
+}
+
+enum Programme {
+  B
+  M
+  P
+}
+
+enum Branch {
+  CS
+  EC
+  ME
+  SM
+  DS
 }
 
 enum SubjectType {
