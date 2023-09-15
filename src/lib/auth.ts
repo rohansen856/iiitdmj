@@ -1,8 +1,8 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { env } from "env.mjs"
 import { NextAuthOptions } from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
+import GoogleProvider from "next-auth/providers/github"
 
+import { env } from "../../env.mjs"
 import { db } from "@/lib/db"
 
 export const authOptions: NextAuthOptions = {
@@ -23,38 +23,6 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ account, profile }) {
-      if (account?.provider === "google") {
-        if (profile?.email && profile.email.endsWith("@iiitdmj.ac.in")) {
-          let emailId: string = profile.email.toUpperCase()
-          let year: number = parseInt(emailId.slice(0, 2))
-          let programme: string = emailId.slice(2, 3)
-          let branch: string = emailId.slice(3, 5)
-          let roll: number = parseInt(emailId.slice(5, 8))
-          if (year < 17 || year > 25) return false
-          if (programme !== "B" || "M" || "P") return false
-          if (branch !== "CS" || "EC" || "ME" || "SM" || "DS") return false
-          if (roll > 500 || roll < 10) return false
-
-          await db.student.create({
-            data: {
-              id: Math.random().toString(),
-              email: emailId,
-              programme,
-              semester: new Date().getFullYear() - year - 1999,
-              branch,
-              group: "B",
-            },
-          })
-
-          return true
-        }
-        return false
-      }
-
-      return true
-    },
-
     async session({ token, session }) {
       if (token) {
         session.user.id = token.id
@@ -85,9 +53,6 @@ export const authOptions: NextAuthOptions = {
         email: dbUser.email,
         picture: dbUser.image,
       }
-    },
-    async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : baseUrl + "/dashboard/profile"
     },
   },
 }
