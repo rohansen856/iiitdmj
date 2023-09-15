@@ -112,10 +112,12 @@ model Student {
   name          String?
   email         String      @unique
   image         String?
+  year          Int
   programme     Programme
   semester      Int
   branch        Branch
   group         Group
+  roll          Int
 
   @@map(name: "students")
 }
