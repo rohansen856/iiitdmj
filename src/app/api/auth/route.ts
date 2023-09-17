@@ -55,6 +55,7 @@ export async function POST(req: Request) {
 export async function GET(req: Request) {
     
     try{
+        return new Response(JSON.stringify(req), { status: 200 })
         const json = await req.json()
         const body = userCreateSchema.parse(json)
 

@@ -50,14 +50,24 @@ export function UserAuthForm({formType}: UserAuthFormProps) {
     setLoading(true)
     try{
 
-    if(formType === "register"){
-      const { data, status } = await axios.post("/api/auth", {body: values})
-      
-      setLoading(false)
-      if(status === 200) return redirect("/dashboard/profile")
+      if(formType === "register"){
+        const { data, status } = await axios.post("/api/auth", {body: values})
+        
+        setLoading(false)
+        if(status === 200) return redirect("/dashboard/profile")
 
-      
-    }}catch(err){
+        
+      }else if(formType === "login"){
+        const { data, status } = await axios.get("/api/auth", {
+          params: {
+            ...values
+          }
+        })
+        
+        setLoading(false)
+        if(status === 200) console.log(data)
+      }
+    }catch(err){
       setLoading(false)
       return toast({
         title: "Something went wrong.",
