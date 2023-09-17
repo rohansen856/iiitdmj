@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { User } from "next-auth"
 import { signOut } from "next-auth/react"
 
 import {
@@ -14,7 +13,11 @@ import {
 import { UserAvatar } from "@/components/user-avatar"
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
-  user: Pick<User, "name" | "image" | "email">
+  user: {
+    name: string | null | undefined
+    image: string | null | undefined
+    email: string
+  }
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {

@@ -12,7 +12,7 @@ export async function getStudentData(){
     return{
         name: "rohan",
         email: email,
-        image: "/",
+        image: null,
         year: (parseInt(email.slice(0, 2))-(new Date()).getFullYear()+2001),
         programme: email.slice(2, 3)+". Tech",
         semester: 1,
