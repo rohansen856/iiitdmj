@@ -84,7 +84,7 @@ export function UserAuthForm({formType}: UserAuthFormProps) {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="my-1">
+            <FormItem className="my-2">
               <FormControl>
                 <Input placeholder="rollno@iiitdmj.ac.in" {...field} />
               </FormControl>
@@ -96,7 +96,7 @@ export function UserAuthForm({formType}: UserAuthFormProps) {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="my-1">
+            <FormItem className="my-2">
               <FormControl>
                 <Input placeholder="password" {...field} />
               </FormControl>
