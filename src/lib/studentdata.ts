@@ -1,16 +1,23 @@
-import { type Student } from "@prisma/client"
+"use server"
 
-export async function getStudentData(): Promise<Student>{
+import { cookies } from "next/headers"
+
+export async function getStudentData(){
+    const data = cookies().get("email")
+
+    if(!data?.value) return null
+
+    const email = data.value.toUpperCase()
+
     return{
-        id: "i2iwwij",
         name: "rohan",
-        email: "23bcs212@iiitdmj.ac.in",
+        email: email,
         image: "/",
-        year: 1,
-        programme: "B",
+        year: (parseInt(email.slice(0, 2))-(new Date()).getFullYear()+2001),
+        programme: email.slice(2, 3)+". Tech",
         semester: 1,
-        branch: "CS",
+        branch: email.slice(3, 5),
         group: "B",
-        roll: 212
+        roll: parseInt(email.slice(5, 8))
     }
 }

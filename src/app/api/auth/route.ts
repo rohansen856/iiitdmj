@@ -1,3 +1,4 @@
+import { cookies } from "next/headers"
 import { db } from "@/lib/db";
 import * as z from "zod"
 
@@ -36,7 +37,11 @@ export async function POST(req: Request) {
                 email: true
             },
         })
-        if(newUser) return new Response(JSON.stringify({body: newUser}), {status: 201})
+        if(newUser) {
+            cookies().set("id", newUser.id, { secure: true })
+            cookies().set("email", newUser.email, { secure: true })
+            return new Response(JSON.stringify({body: newUser}), {status: 201})
+        }
 
         return new Response(JSON.stringify({status: 500, message: "There was an error please try again later"}))
 
