@@ -10,6 +10,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Student {
+  id            String      @id @default(cuid())
+  password      String
+  name          String?
+  email         String      @unique
+  image         String?
+  year          Int?
+  programme     Programme?
+  semester      Int?
+  branch        Branch?
+  group         Group?
+  roll          Int?
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @default(now()) @map(name: "updated_at")
+
+  @@map(name: "students")
+}
+
 model Routine {
   id            String    @id @default(cuid())
   semester      Int
@@ -51,24 +69,6 @@ model Club {
   Post     Post[]  
 
   @@map(name: "club")
-}
-
-model Student {
-  id            String      @id @default(cuid())
-  password      String
-  name          String?
-  email         String      @unique
-  image         String?
-  year          Int?
-  programme     Programme?
-  semester      Int?
-  branch        Branch?
-  group         Group?
-  roll          Int?
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @default(now()) @map(name: "updated_at")
-
-  @@map(name: "students")
 }
 
 enum Programme {

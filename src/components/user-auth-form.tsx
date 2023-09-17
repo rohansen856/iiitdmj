@@ -1,81 +1,105 @@
 "use client"
 
-import * as React from "react"
-import { useSearchParams } from "next/navigation"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { signIn } from "next-auth/react"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { useState } from "react"
 
-import { cn } from "@/lib/utils"
-import { userAuthSchema } from "@/lib/validations/auth"
-import { buttonVariants } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { redirect } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { useForm } from "react-hook-form"
+import axios from "axios"
 import { toast } from "@/components/ui/use-toast"
+
+import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 import { Icons } from "@/components/icons"
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+const formSchema = z.object({
+  email: z.string().min(2, {
+    message: "email must be at least 2 characters.",
+  }),
+  password: z.string().min(2, {
+    message: "password must be at least 2 characters.",
+  }),
+})
 
-type FormData = z.infer<typeof userAuthSchema>
+interface UserAuthFormProps {
+  formType: "login" | "register"
+}
 
-export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const searchParams = useSearchParams()
+export function UserAuthForm({formType}: UserAuthFormProps) {
+  const [isLoading, setLoading] = useState<boolean>(false)
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: ""
+    },
+  })
 
-  async function onSubmit(data: FormData) {
-    setIsLoading(true)
+  // 2. Define a submit handler.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true)
+    try{
 
-    const signInResult = await signIn("email", {
-      email: data.email.toLowerCase(),
-      redirect: false,
-      callbackUrl: searchParams?.get("from") || "/dashboard",
-    })
+    if(formType === "register"){
+      const { data, status } = await axios.post("/api/auth", {body: values})
+      
+      setLoading(false)
+      if(status === 200) return redirect("/dashboard/profile")
 
-    setIsLoading(false)
-
-    if (!signInResult?.ok) {
+      
+    }}catch(err){
+      setLoading(false)
       return toast({
         title: "Something went wrong.",
-        description: "Your sign in request failed. Please try again.",
+        description: "There was an error. please try again later",
         variant: "destructive",
       })
     }
-
-    return toast({
-      title: "Check your email",
-      description: "We sent you a login link. Be sure to check your spam too.",
-    })
   }
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Use your institute gmail id
-          </span>
-        </div>
-      </div>
-      <button
-        type="button"
-        className={cn(buttonVariants({ variant: "outline" }))}
-        onClick={() => {
-          setIsLoading(true)
-          signIn("github")
-        }}
-        disabled={isLoading}
-      >
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem className="my-1">
+              <FormControl>
+                <Input placeholder="rollno@iiitdmj.ac.in" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem className="my-1">
+              <FormControl>
+                <Input placeholder="password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button disabled={isLoading} type="submit" variant={"default"} className="mt-5 w-full">
         {isLoading ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Icons.gitHub className="mr-2 h-4 w-4" />
-        )}{" "}
-        Github
-      </button>
-    </div>
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            ): "Submit"}
+        </Button>
+      </form>
+    </Form>
   )
 }
