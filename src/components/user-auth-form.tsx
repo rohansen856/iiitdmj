@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useForm } from "react-hook-form"
@@ -35,6 +35,7 @@ interface UserAuthFormProps {
 }
 
 export function UserAuthForm({formType}: UserAuthFormProps) {
+  const router = useRouter()
   const [isLoading, setLoading] = useState<boolean>(false)
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -54,7 +55,7 @@ export function UserAuthForm({formType}: UserAuthFormProps) {
         const { data, status } = await axios.post("/api/auth", {body: values})
         
         setLoading(false)
-        if(status === 200) return redirect("/dashboard/profile")
+        if(status === 200) return router.push("/dashboard/profile")
 
         
       }else if(formType === "login"){
@@ -65,13 +66,14 @@ export function UserAuthForm({formType}: UserAuthFormProps) {
         })
         
         setLoading(false)
-        if(status === 200) console.log(data)
+        if(status === 200) return router.push("/dashboard/profile")
       }
     }catch(err){
+      console.log(err)
       setLoading(false)
       return toast({
-        title: "Something went wrong.",
-        description: "There was an error. please try again later",
+        title: err.response.data.header,
+        description: err.response.data.description,
         variant: "destructive",
       })
     }
