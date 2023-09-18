@@ -10,7 +10,7 @@ export function DocsPageHeader({
   text,
   className,
   ...props
-}: DocsPageHeaderProps) {
+}: DocsPageHeaderProps) { 
   return (
     <>
       <div className={cn("space-y-4", className)} {...props}>
