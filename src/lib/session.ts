@@ -8,11 +8,4 @@ export async function getCurrentUser() {
   if(user.id) return user
 
   return null
-
-  return {
-    id: "1256tg",
-    name: "dev user",
-    email: "rcsen@iiitdmj",
-    image: "/images/avatars/shadcn.png",
-  }
 }

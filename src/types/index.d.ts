@@ -6,10 +6,13 @@ import { Icons } from "@/components/icons"
 export type StudentnfoProps = {
   name: string,
   email: string
+  image?: string
   year: number
   semester: number
   programme: string
   branch: string
+  group: "A"|"B"
+  roll: number
 }
 
 export type NavItem = {

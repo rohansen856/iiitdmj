@@ -1,7 +1,6 @@
-import { getServerSession } from "next-auth/next"
+import { getCurrentUser } from "@/lib/session"
 import * as z from "zod"
 
-import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { RequiresProPlanError } from "@/lib/exceptions"
 
@@ -12,13 +11,13 @@ const postCreateSchema = z.object({
 
 export async function GET() {
   try {
-    const session = await getServerSession(authOptions)
+    const session = await getCurrentUser()
 
     if (!session) {
       return new Response("Unauthorized", { status: 403 })
     }
 
-    const { user } = session
+    const user = session
     const posts = await db.post.findMany({
       select: {
         id: true,
@@ -39,13 +38,13 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions)
+    const session = await getCurrentUser()
 
-    if (!session) {
+    if (!session || session.id) {
       return new Response("Unauthorized", { status: 403 })
     }
 
-    const { user } = session
+    const user = session
 
     const json = await req.json()
     const body = postCreateSchema.parse(json)
@@ -54,7 +53,7 @@ export async function POST(req: Request) {
       data: {
         title: body.title,
         content: body.content,
-        authorId: session.user.id,
+        authorId: session.id || "",
       },
       select: {
         id: true,

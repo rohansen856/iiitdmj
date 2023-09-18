@@ -1,12 +1,11 @@
 import { notFound, redirect } from "next/navigation"
-import { Post, User } from "@prisma/client"
+import { Post, Student } from "@prisma/client"
 
-import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
 import { Editor } from "@/components/editor"
 
-async function getPostForUser(postId: Post["id"], userId: User["id"]) {
+async function getPostForUser(postId: Post["id"], userId: Student["id"]) {
   return await db.post.findFirst({
     where: {
       id: postId,
@@ -22,8 +21,8 @@ interface EditorPageProps {
 export default async function EditorPage({ params }: EditorPageProps) {
   const user = await getCurrentUser()
 
-  if (!user) {
-    redirect(authOptions?.pages?.signIn || "/login")
+  if (!user || !user.id) {
+    redirect("/login")
   }
 
   const post = await getPostForUser(params.postId, user.id)

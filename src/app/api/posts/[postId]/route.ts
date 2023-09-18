@@ -1,9 +1,8 @@
-import { getServerSession } from "next-auth"
 import * as z from "zod"
 
-import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { postPatchSchema } from "@/lib/validations/post"
+import { getCurrentUser } from "@/lib/session"
 
 const routeContextSchema = z.object({
   params: z.object({
@@ -81,11 +80,11 @@ export async function PATCH(
 }
 
 async function verifyCurrentUserHasAccessToPost(postId: string) {
-  const session = await getServerSession(authOptions)
+  const session = await getCurrentUser()
   const count = await db.post.count({
     where: {
       id: postId,
-      authorId: session?.user.id,
+      authorId: session?.id,
     },
   })
 

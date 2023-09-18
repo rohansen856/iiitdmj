@@ -15,10 +15,9 @@ interface DashboardLayoutProps {
 export default async function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
-  const user = await getCurrentUser()
   const student = await getStudentData()
 
-  if (!user || !student?.email) {
+  if (!student || !student?.email) {
     return redirect("/login")
   }
 

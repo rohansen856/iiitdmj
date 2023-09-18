@@ -2,10 +2,7 @@ import { db } from "@/lib/db"
 import { type StudentnfoProps } from "@/types"
 
 interface RoutineProps {
-    data: {
-        semester: number | undefined
-        group: string | undefined
-    }
+    data: StudentnfoProps
 }
 
 const weekDays = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
@@ -23,9 +20,6 @@ function NoRoutine(){
 
 export async function Routine({ data }: RoutineProps) {
     try {
-        if(data.group !== "A"||"B"){
-            return <NoRoutine />
-        }
 
         const routine = await db.routine.findMany({
             where: {
