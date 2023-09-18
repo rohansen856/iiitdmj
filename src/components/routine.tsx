@@ -1,17 +1,32 @@
 import { db } from "@/lib/db"
-import { Student } from "@prisma/client"
+import { type StudentnfoProps } from "@/types"
 
 interface RoutineProps {
     data: {
         semester: number | undefined
-        group: "A" | "B" | undefined
+        group: string | undefined
     }
 }
 
 const weekDays = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
 
+function NoRoutine(){
+
+    return (
+        <div className="relative w-full">
+            <div className="flex h-24 w-full space-x-2">
+                <p className="m-auto rounded-md bg-secondary p-2">No classes today</p>
+            </div>
+        </div>
+    )
+}
+
 export async function Routine({ data }: RoutineProps) {
     try {
+        if(data.group !== "A"||"B"){
+            return <NoRoutine />
+        }
+
         const routine = await db.routine.findMany({
             where: {
                 semester: data.semester,
@@ -22,13 +37,7 @@ export async function Routine({ data }: RoutineProps) {
         routine.sort((a, b) => a.start - b.start)
 
         if (routine.length === 0) {
-            return (
-                <div className="relative w-full">
-                    <div className="flex h-24 w-full space-x-2">
-                        <p className="m-auto rounded-md bg-secondary p-2">No classes today</p>
-                    </div>
-                </div>
-            )
+            return <NoRoutine />
         }
 
         return (

@@ -1,7 +1,16 @@
-import { User } from "@prisma/client"
+import { Student } from "@prisma/client"
 import type { Icon } from "lucide-react"
 
 import { Icons } from "@/components/icons"
+
+export type StudentnfoProps = {
+  name: string,
+  email: string
+  year: number
+  semester: number
+  programme: string
+  branch: string
+}
 
 export type NavItem = {
   title: string

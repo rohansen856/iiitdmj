@@ -2,6 +2,7 @@ import { redirect } from "next/navigation"
 
 import { clubConfig } from "@/config/club"
 import { getCurrentUser } from "@/lib/session"
+import { getStudentData } from "@/lib/studentdata"
 import { MainNav } from "@/components/main-nav"
 import { DashboardNav } from "@/components/nav"
 import { SiteFooter } from "@/components/site-footer"
@@ -15,8 +16,9 @@ export default async function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
   const user = await getCurrentUser()
+  const student = await getStudentData()
 
-  if (!user) {
+  if (!user || !student) {
     return redirect("/login")
   }
 
@@ -27,9 +29,9 @@ export default async function DashboardLayout({
           <MainNav items={clubConfig.mainNav} />
           <UserAccountNav
             user={{
-              name: user.name,
-              image: user.image,
-              email: user.id,
+              name: student.name,
+              image: student.image,
+              email: student.email,
             }}
           />
         </div>

@@ -1,8 +1,8 @@
 import Image from "next/image"
-import { type Student } from "@prisma/client"
+import { type StudentnfoProps } from "@/types"
 
 interface ProfileInfoProps {
-    data: Student
+    data: StudentnfoProps
 }
 
 export function ProfileInfo({ data }: ProfileInfoProps) {
