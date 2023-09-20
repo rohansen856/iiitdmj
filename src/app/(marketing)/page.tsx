@@ -24,7 +24,7 @@ export default async function IndexPage() {
             Design and Manufacturing, Jabalpur
           </p>
           <div className="space-x-4">
-            <Link href="/login" className={cn(buttonVariants({ size: "lg" }))}>
+            <Link href="/dashboard/profile" className={cn(buttonVariants({ size: "lg" }))}>
               Get Started
             </Link>
           </div>

@@ -4,15 +4,15 @@ import type { Icon } from "lucide-react"
 import { Icons } from "@/components/icons"
 
 export type StudentnfoProps = {
-  name: string,
-  email: string
-  image?: string
-  year: number
-  semester: number
-  programme: string
-  branch: string
-  group: "A"|"B"
-  roll: number
+    name: string | null;
+    email: string;
+    image: string | null;
+    year: number | null;
+    programme: "B" | "M" | "P" | null;
+    semester: number | null;
+    branch:   "CS" | "EC" | "ME" | "SM" | "DS" | null;
+    group: "A" | "B" | null;
+    roll: number | null;
 }
 
 export type NavItem = {

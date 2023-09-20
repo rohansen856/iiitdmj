@@ -7,6 +7,28 @@ const userCreateSchema = z.object({
     password: z.string(),
 })
 
+function validateData(email: string) {
+    let isValid: boolean = true
+    email = email.toUpperCase()
+
+    const year: number = (parseInt(email.slice(0, 2))-(new Date()).getFullYear()+2001)
+    const programme: string = email.slice(2, 3)
+    const semester: number = 1
+    const branch: string = email.slice(3, 5)
+    const group: string = "B"
+    const roll: number = parseInt(email.slice(5, 8))
+
+    if(year < 1 || year > 6) isValid = false
+    if(programme !== "B" || "M" || "P") isValid = false
+    if(semester < 1 || semester > 10) isValid = false
+    if(branch !== "CS" || "EC" || "ME" || "SM" || "DS") isValid = false
+    if(group !== "A" || "B") isValid = false
+    if(roll < 1 || roll > 500) isValid = false
+    return {
+        isValid, email, year, programme, semester, branch, group, roll
+    }
+}
+
 export async function POST(req: Request) {
 
     try{
@@ -27,23 +49,34 @@ export async function POST(req: Request) {
         })
         if(isExistingUser) return new Response(JSON.stringify({header: "email already exists", description: "This email id is already registered. Please try logging in"}), {status: 405})
 
-        const newUser = await await db.student.create({
-            data: {
-                email: body.email.toLowerCase(),
-                password: body.password,
-            },
-            select: {
-                id: true,
-                email: true
-            },
-        })
-        if(newUser) {
-            cookies().set("id", newUser.id, { secure: true })
-            cookies().set("email", newUser.email, { secure: true })
-            return new Response(JSON.stringify({body: newUser}), {status: 201})
-        }
+        const filteredData = validateData(body.email)
+        // if(filteredData.isValid){
+            const newUser = await db.student.create({
+                data: {
+                    email: body.email.toLowerCase(),
+                    password: body.password,
+                    year: filteredData.year,
+                    // @ts-expect-error
+                    programme: filteredData.programme,
+                    semester: filteredData.semester,
+                    // @ts-expect-error
+                    branch: filteredData.branch,
+                    // @ts-expect-error
+                    group: filteredData.group,
+                },
+                select: {
+                    id: true,
+                    email: true
+                },
+            })
+            if(newUser) {
+                cookies().set("id", newUser.id, { secure: true })
+                cookies().set("email", newUser.email, { secure: true })
+                return new Response(JSON.stringify({body: newUser}), {status: 201})
+            }
+        // }
 
-        return new Response(JSON.stringify({header: "Internal server error", description: "There was an error in the server! please try again later"}), { status: 500 })
+        return new Response(JSON.stringify({header: "Internal server error", description: "There was an error in the server! please try again later", filteredData}), { status: 500 })
 
     }catch(error){
         if (error instanceof z.ZodError) {

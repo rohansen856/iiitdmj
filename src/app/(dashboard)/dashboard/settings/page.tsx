@@ -4,6 +4,7 @@ import { getStudentData } from "@/lib/studentdata"
 import { DashboardHeader } from "@/components/header"
 import { DashboardShell } from "@/components/shell"
 import { UserNameForm } from "@/components/user-name-form"
+import { getCurrentUser } from "@/lib/session"
 
 export const metadata = {
   title: "Settings",
@@ -11,11 +12,13 @@ export const metadata = {
 }
 
 export default async function SettingsPage() {
-  const user = await getStudentData()
+  const user = await getCurrentUser()
 
-  if (!user) {
+  if (!user || !user.id) {
     redirect("/login")
   }
+
+  const student = await getStudentData()
 
   return (
     <DashboardShell>
@@ -24,7 +27,7 @@ export default async function SettingsPage() {
         text="Manage account and website settings."
       />
       <div className="grid gap-10">
-        <UserNameForm user={{ id: user.email, name: user.name || "" }} />
+        <UserNameForm user={{ id: user.id, name: student?.name || "" }} />
       </div>
     </DashboardShell>
   )

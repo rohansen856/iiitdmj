@@ -4,12 +4,12 @@ export const siteConfig: Readonly<Partial<SiteConfig>> = {
   name: "IIITDMJ",
   description:
     "An open source application built using the new router, server components and everything new in Next.js 13.",
-  url: "https://tx.shadcn.com",
+  url: "https://iiitdmjvercel.app",
   creator: "rcsen",
   authors: [
     {
       name: "rcsen",
-      url: "https://rcsen.com",
+      url: "https://rcsen.vercel.app",
     },
   ],
   keywords: [
@@ -22,7 +22,7 @@ export const siteConfig: Readonly<Partial<SiteConfig>> = {
   ],
   ogImage: "https://iiitdmj.vercel.app/og.jpg",
   links: {
-    twitter: "https://twitter.com/rcsen",
+    twitter: "https://twitter.com/rohansen856",
     github: "https://github.com/rohansen856",
   },
 }

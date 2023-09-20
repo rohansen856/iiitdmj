@@ -14,7 +14,7 @@ export function ProfileInfo({ data }: ProfileInfoProps) {
             <div className="h-24 w-full bg-secondary">
                 <p className="w-full text-center">{data.email}</p>
                 <div className="flex justify-between p-7">
-                    <p> name: {data.name}</p>
+                    <p> name: {data.name ?? "<No Name>"}</p>
                     <p> year: {data.year}</p>
                     <p> semester: {data.semester}</p>
                     <p> programme: {data.programme}</p>

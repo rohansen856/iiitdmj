@@ -1,11 +1,10 @@
 "use server"
+import { cookies } from "next/headers"
 
 import { type StudentnfoProps } from "@/types"
 
-import { cookies } from "next/headers"
-
-export async function getStudentData(): Promise<StudentnfoProps|null>{
-    const data = cookies().get("email")
+export async function getStudentData(): Promise<StudentnfoProps | null>{
+    let data = cookies().get("email")
 
     if(!data?.value) return null
 
@@ -14,10 +13,12 @@ export async function getStudentData(): Promise<StudentnfoProps|null>{
     return{
         name: "rohan",
         email: email,
-        image: undefined,
+        image: null,
         year: (parseInt(email.slice(0, 2))-(new Date()).getFullYear()+2001),
+        //@ts-expect-error
         programme: email.slice(2, 3)+". Tech",
         semester: 1,
+        //@ts-expect-error
         branch: email.slice(3, 5),
         group: "B",
         roll: parseInt(email.slice(5, 8))
