@@ -23,9 +23,9 @@ export async function Routine({ data }: RoutineProps) {
 
         const routine = await db.routine.findMany({
             where: {
-                semester: data.semester,
+                semester: data.semester || 0,
                 day: weekDays[(new Date).getDay()],
-                group: data.group,
+                group: data.group || undefined,
             }
         })
         routine.sort((a, b) => a.start - b.start)
