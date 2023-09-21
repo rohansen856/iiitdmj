@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Student } from "@prisma/client"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import axios from "axios"
 
 import { cn } from "@/lib/utils"
 import { userNameSchema } from "@/lib/validations/user"
@@ -46,19 +47,13 @@ export function UserNameForm({ user, className, ...props }: UserNameFormProps) {
   async function onSubmit(data: FormData) {
     setIsSaving(true)
 
-    const response = await fetch(`/api/user/${user.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    const response = await axios.patch(`/api/users/${user.id}`, {
         name: data.name,
-      }),
     })
-
+    console.log(response)
     setIsSaving(false)
 
-    if (!response?.ok) {
+    if (response?.status !== 200) {
       return toast({
         title: "Something went wrong.",
         description: "Your name was not updated. Please try again.",

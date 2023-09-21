@@ -55,7 +55,7 @@ export function UserAuthForm({formType}: UserAuthFormProps) {
         const { data, status } = await axios.post("/api/auth", {body: values})
         
         setLoading(false)
-        if(status === 200) return router.push("/dashboard/profile")
+        if(status === 201) return router.push("/dashboard/profile")
 
         
       }else if(formType === "login"){
@@ -72,8 +72,8 @@ export function UserAuthForm({formType}: UserAuthFormProps) {
       console.log(err)
       setLoading(false)
       return toast({
-        title: err.response.data.header,
-        description: err.response.data.description,
+        title: err.response.data.header || "There was an unexpected error!",
+        description: err.response.data.description || "Please try again later",
         variant: "destructive",
       })
     }

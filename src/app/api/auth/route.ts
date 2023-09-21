@@ -61,6 +61,7 @@ export async function POST(req: Request) {
                     semester: filteredData.semester,
                     // @ts-expect-error
                     branch: filteredData.branch,
+                    roll: filteredData.roll,
                     // @ts-expect-error
                     group: filteredData.group,
                 },

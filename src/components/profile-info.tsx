@@ -17,7 +17,7 @@ export function ProfileInfo({ data }: ProfileInfoProps) {
                     <p> name: {data.name ?? "<No Name>"}</p>
                     <p> year: {data.year}</p>
                     <p> semester: {data.semester}</p>
-                    <p> programme: {data.programme}</p>
+                    <p> programme: {data.programme}. Tech.</p>
                     <p> branch: {data.branch}</p>
                 </div>
             </div>

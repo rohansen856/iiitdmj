@@ -11,19 +11,15 @@ const routeContextSchema = z.object({
 })
 
 export async function PATCH(
-  req: Request,
-  context: z.infer<typeof routeContextSchema>
+  req: Request
 ) {
   try {
-    // Validate the route context.
-    const { params } = routeContextSchema.parse(context)
 
     // Ensure user is authentication and has access to this user.
     const session = await getCurrentUser()
-    if (!session || params.userId !== session?.id) {
+    if (!session?.id) {
       return new Response(null, { status: 403 })
     }
-
     // Get the request body and validate it.
     const body = await req.json()
     const payload = userNameSchema.parse(body)
