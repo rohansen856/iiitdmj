@@ -1,8 +1,8 @@
 import Image from "next/image"
-import { type StudentnfoProps } from "@/types"
+import { type StudentInfoProps } from "@/types"
 
 interface ProfileInfoProps {
-    data: StudentnfoProps
+    data: StudentInfoProps
 }
 
 export function ProfileInfo({ data }: ProfileInfoProps) {

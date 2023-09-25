@@ -3,7 +3,7 @@ import type { Icon } from "lucide-react"
 
 import { Icons } from "@/components/icons"
 
-export type StudentnfoProps = {
+export type StudentInfoProps = {
     name: string | null;
     email: string;
     image: string | null;

@@ -1,10 +1,10 @@
 "use server"
 import { cookies } from "next/headers"
 
-import { type StudentnfoProps } from "@/types"
+import { type StudentInfoProps } from "@/types"
 import { db } from "@/lib/db"
 
-export async function getStudentData(): Promise<StudentnfoProps | null>{
+export async function getStudentData(): Promise<StudentInfoProps | null>{
     let data = cookies().get("id")
     let email = cookies().get("email")
 

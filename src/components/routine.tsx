@@ -1,8 +1,8 @@
 import { db } from "@/lib/db"
-import { type StudentnfoProps } from "@/types"
+import { type StudentInfoProps } from "@/types"
 
 interface RoutineProps {
-    data: StudentnfoProps
+    data: StudentInfoProps
 }
 
 const weekDays = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
