@@ -4,7 +4,7 @@ export const siteConfig: Readonly<Partial<SiteConfig>> = {
   name: "IIITDMJ",
   description:
     "An open source application built using the new router, server components and everything new in Next.js 13.",
-  url: "https://iiitdmjvercel.app",
+  url: "https://iiitdmj.vercel.app",
   creator: "rcsen",
   authors: [
     {

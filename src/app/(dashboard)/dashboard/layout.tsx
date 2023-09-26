@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation"
 
 import { dashboardConfig } from "@/config/dashboard"
-import { getCurrentUser } from "@/lib/session"
 import { getStudentData } from "@/lib/studentdata"
 import { MainNav } from "@/components/main-nav"
 import { DashboardNav } from "@/components/nav"

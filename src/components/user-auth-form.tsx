@@ -22,11 +22,11 @@ import { Input } from "@/components/ui/input"
 import { Icons } from "@/components/icons"
 
 const formSchema = z.object({
-  email: z.string().min(2, {
-    message: "email must be at least 2 characters.",
+  email: z.string().min(15, {
+    message: "invaid email is.",
   }),
-  password: z.string().min(2, {
-    message: "password must be at least 2 characters.",
+  password: z.string().min(5, {
+    message: "password must be at least 5 characters.",
   }),
 })
 
@@ -37,7 +37,7 @@ interface UserAuthFormProps {
 export function UserAuthForm({formType}: UserAuthFormProps) {
   const router = useRouter()
   const [isLoading, setLoading] = useState<boolean>(false)
-  // 1. Define your form.
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,7 +46,6 @@ export function UserAuthForm({formType}: UserAuthFormProps) {
     },
   })
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true)
     try{
@@ -64,9 +63,14 @@ export function UserAuthForm({formType}: UserAuthFormProps) {
             ...values
           }
         })
-        
         setLoading(false)
-        if(status === 200) return router.push("/dashboard/profile")
+
+        if(status !== 200) return toast({
+          title: "User not found!",
+          description: "No user with this email id and password was found.",
+          variant: "destructive",
+        })
+        return router.push("/dashboard/profile")
       }
     }catch(err){
       console.log(err)

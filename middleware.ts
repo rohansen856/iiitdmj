@@ -1,18 +1,16 @@
-import { NextResponse } from "next/server"
-import { getToken } from "next-auth/jwt"
-import { withAuth } from "next-auth/middleware"
+import { NextResponse, type NextRequest } from "next/server"
+import { cookies } from "next/headers"
 
-export default withAuth(
-  async function middleware(req) {
-    const token = await getToken({ req })
-    const isAuth = !!token
+export function middleware(req: NextRequest) {
+    const isAuth = !!cookies().get("email")?.value
+
     const isAuthPage =
       req.nextUrl.pathname.startsWith("/login") ||
       req.nextUrl.pathname.startsWith("/register")
 
     if (isAuthPage) {
       if (isAuth) {
-        return NextResponse.redirect(new URL("/dashboard", req.url))
+        return NextResponse.redirect(new URL("/dashboard/profile", req.url))
       }
 
       return null
@@ -28,18 +26,8 @@ export default withAuth(
         new URL(`/login?from=${encodeURIComponent(from)}`, req.url)
       )
     }
-  },
-  {
-    callbacks: {
-      async authorized() {
-        // This is a work-around for handling redirect on auth pages.
-        // We return true here so that the middleware function above
-        // is always called.
-        return true
-      },
-    },
   }
-)
+
 
 export const config = {
   matcher: ["/dashboard/:path*", "/editor/:path*", "/login", "/register"],
