@@ -32,7 +32,7 @@ export async function getStudentData(): Promise<StudentInfoProps | null>{
         image: studentData?.image || null,
         year: studentData?.year || null,
         programme: studentData?.programme || null,
-        semester: 1,
+        semester: studentData?.semester || null,
         branch: studentData?.branch || null,
         group: studentData?.group || null,
         roll: studentData?.roll || null

@@ -30,6 +30,7 @@ export const metadata = {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
   },
+  metadataBase: new URL(siteConfig.metadataBase || "/"),
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   authors: siteConfig.authors,

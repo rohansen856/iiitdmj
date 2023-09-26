@@ -1,13 +1,14 @@
 "use client";
 
-// You need to import our styles for the button to look right. Best to import in the root /layout.tsx but this is fine
-import React from "react";
+import { redirect } from "next/navigation";
+import { ButtonHTMLAttributes, forwardRef } from "react";
 
+import { toast } from "@/components/ui/use-toast"
 import { UploadButton } from "@/lib/upload";
 
-export interface ImageUploadButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface ImageUploadButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-const ImgUploadButton = React.forwardRef<HTMLButtonElement, ImageUploadButtonProps>(
+const ImgUploadButton = forwardRef<HTMLButtonElement, ImageUploadButtonProps>(
     ({ className, ...props }, ref) => {
         return (
             <UploadButton
@@ -20,12 +21,20 @@ const ImgUploadButton = React.forwardRef<HTMLButtonElement, ImageUploadButtonPro
             endpoint="imageUploader"
             onClientUploadComplete={(res) => {
             // Do something with the response
-            console.log("Files: ", res);
-            alert("Upload Completed");
+            return toast({
+                title: "Success!",
+                description: "Your profile image has been updated successfully.",
+                variant: "default",
+            })
+            redirect("/dashboard/settings")
             }}
             onUploadError={(error: Error) => {
             // Do something with the error.
-            alert(`ERROR! ${error.message}`);
+            return toast({
+                title: "Error!",
+                description: "There was an error while uploading the image.",
+                variant: "destructive",
+            })
             }}
         />
         )

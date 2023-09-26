@@ -42,6 +42,7 @@ export type SidebarNavItem = {
 export type SiteConfig = {
   name: string
   description: string
+  metadataBase: string
   url: string
   creator: string
   authors: {
