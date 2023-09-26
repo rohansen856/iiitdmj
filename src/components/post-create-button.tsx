@@ -49,7 +49,7 @@ export function PostCreateButton({
       })
     }
 
-    const post = await response.json()
+    const post = await response.json() as any
 
     // This forces a cache invalidation.
     router.refresh()

@@ -3,16 +3,20 @@ import type { Icon } from "lucide-react"
 
 import { Icons } from "@/components/icons"
 
+export type Prettify<T> = {
+	[K in keyof T]: T[K]
+} & {}
+
 export type StudentInfoProps = {
-    name: string | null;
-    email: string;
-    image: string | null;
-    year: number | null;
-    programme: "B" | "M" | "P" | null;
-    semester: number | null;
-    branch:   "CS" | "EC" | "ME" | "SM" | "DS" | null;
-    group: "A" | "B" | null;
-    roll: number | null;
+  name: string | null
+  email: string
+  image: string | null
+  year: number | null
+  programme: "B" | "M" | "P" | null
+  semester: number | null
+  branch:   "CS" | "EC" | "ME" | "SM" | "DS" | null
+  group: "A" | "B" | null
+  roll: number | null
 }
 
 export type NavItem = {

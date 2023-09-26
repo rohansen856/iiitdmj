@@ -38,7 +38,7 @@ function validateData(email: string) {
 export async function POST(req: Request) {
 
     try{
-        const json = await req.json()
+        const json = await req.json() as any
         const body = userCreateSchema.parse(json.body)
         
         const filteredData = validateData(body.email)
