@@ -8,7 +8,7 @@ interface ProfileInfoProps {
 export function ProfileInfo({ data }: ProfileInfoProps) {
     return (
         <section className="relative flex w-full flex-col items-center justify-center">
-            <div className="relative m-5 mt-0 h-32 w-32 rounded-full border bg-secondary">
+            <div className="relative m-5 mt-0 h-32 w-32 rounded-full border bg-slate-400">
                 <Image src="/images/avatars/shadcn.png" alt="U" fill />
             </div>
             <div className="h-24 w-full bg-secondary">

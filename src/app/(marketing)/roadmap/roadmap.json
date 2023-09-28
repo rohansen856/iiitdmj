@@ -1,0 +1,34 @@
+[
+    {
+        "feature": "Starting The Project",
+        "completed": true
+    },
+    {
+        "feature": "Creating the first Page",
+        "completed": true
+    },
+    {
+        "feature": "Integrating Prisma",
+        "completed": true
+    },
+    {
+        "feature": "Connecting the Database",
+        "completed": true
+    },
+    {
+        "feature": "Preparing all the Tables",
+        "completed": true
+    },
+    {
+        "feature": "Creating Profile page",
+        "completed": false
+    },
+    {
+        "feature": "Creating Routine System",
+        "completed": false
+    },
+    {
+        "feature": "Creating the Settings page",
+        "completed": false
+    }
+]

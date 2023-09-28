@@ -38,7 +38,8 @@ function validateData(email: string) {
 export async function POST(req: Request) {
 
     try{
-        const json = await req.json() as any
+        const json = await req.json()
+        if(!json || typeof json !== "object" || !("body" in json)) return new Response(JSON.stringify({header: "Invalid email id", description: "please enter a valid institute email"}), {status: 401})
         const body = userCreateSchema.parse(json.body)
         
         const filteredData = validateData(body.email)

@@ -49,7 +49,15 @@ export function PostCreateButton({
       })
     }
 
-    const post = await response.json() as any
+    const post = await response.json()
+
+    if(!post || typeof post !== "object" || !("id" in post)) {
+      return toast({
+        title: "Invalid post.",
+        description: "Your post was not created. Please try again.",
+        variant: "destructive",
+      })
+    }
 
     // This forces a cache invalidation.
     router.refresh()
